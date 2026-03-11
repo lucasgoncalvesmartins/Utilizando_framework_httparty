@@ -46,7 +46,11 @@ end
 
 
 Dado('que o usuario altere uma informacao de um funcionario') do
-  @put_url = 'http://dummy.restapiexample.com/api/v1/update/123'
+  @get_employees = HTTParty.get('http://dummy.restapiexample.com/api/v1/employees', headers: {
+    'Content-Type' => 'application/json'
+  })
+@put_url = "http://dummy.restapiexample.com/api/v1/update/" + @get_employees["data"][0]["id"].to_s
+
 end
 
 Quando('ele enviar as novas informacoes') do
@@ -62,6 +66,12 @@ Quando('ele enviar as novas informacoes') do
   puts (@update_employee)
 end
 
-Entao('as informcoes serao alteradas') do
-
+Entao('as informacoes serao alteradas') do
+expect(@update_employee.code).to eql (200)
+  expect(@update_employee.message).to eql 'OK'
+  expect(@update_employee["status"]).to eql 'success'
+  expect(@update_employee["message"]).to eql 'Successfully! Record has been updated.'
+  expect(@update_employee.parsed_response["data"]["employee_name"]).to eql 'John Doe Updated'
+  expect(@update_employee.parsed_response["data"]["employee_salary"]).to eql (55000)
+  expect(@update_employee.parsed_response["data"]["employee_age"]).to eql (31)
 end

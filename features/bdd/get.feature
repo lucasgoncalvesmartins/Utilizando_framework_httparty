@@ -20,4 +20,4 @@ Funcionalidade: Pesquisar Funcionarios
     Cenario: Alterar informacoes cadastrais
         Dado que o usuario altere uma informacao de um funcionario
         Quando ele enviar as novas informacoes 
-        Entao as informcoes serao alteradas
+        Entao as informacoes serao alteradas
