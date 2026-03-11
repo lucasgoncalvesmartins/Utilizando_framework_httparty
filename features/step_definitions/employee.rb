@@ -1,0 +1,45 @@
+Dado('que o usuario consulte informacoes de um funcionario') do
+  @get_url = 'http://dummy.restapiexample.com/api/v1/employees'
+end
+
+Quando('ele realizar a pesquisa') do
+  @list_employees = HTTParty.get(@get_url)
+  puts "A resposta da API foi: #{@list_employees.inspect}"
+end
+
+Entao('uma lista de funcionarios deve retornar') do
+  expect(@list_employees.code).to eql 200
+  expect(@list_employees.message).to eql 'OK'
+end
+
+
+Dado('que o usuario cadastre um novofuncionario') do
+  @post_url = 'http://dummy.restapiexample.com/api/v1/create'
+end
+
+Quando('ele deve enviar as informacoes do funcionario') do
+  @create_employee = HTTParty.post(@post_url, body: {
+    "id": "123",
+    "employee_name": "John Doe",
+    "employee_salary": 50000,
+    "employee_age": 30,
+    "profile_image": ""
+  }.to_json,  
+  headers: {
+    'Content-Type' => 'application/json'
+  })
+
+  puts @create_employee
+end
+
+
+Entao('esse funcionario sera cadastrado') do
+  expect(@create_employee.code).to eql (200)
+  expect(@create_employee.message).to eql 'OK'
+  expect(@create_employee["status"]).to eql 'success'
+  expect(@create_employee["message"]).to eql 'Successfully! Record has been added.'
+  expect(@create_employee.parsed_response["data"]["employee_name"]).to eql 'John Doe'
+  expect(@create_employee.parsed_response["data"]["employee_salary"]).to eql (50000)
+  expect(@create_employee.parsed_response["data"]["employee_age"]).to eql (30)
+
+end
