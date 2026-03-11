@@ -13,21 +13,11 @@ end
 
 
 Dado('que o usuario cadastre um novofuncionario') do
-  @post_url = 'http://dummy.restapiexample.com/api/v1/create'
+  @create = EmployeeAPI_Request.new
 end
 
 Quando('ele deve enviar as informacoes do funcionario') do
-  @create_employee = HTTParty.post(@post_url, body: {
-    "id": "123",
-    "employee_name": "John Doe",
-    "employee_salary": 50000,
-    "employee_age": 30,
-    "profile_image": ""
-  }.to_json,  
-  headers: {
-    'Content-Type' => 'application/json'
-  })
-
+  @create_employee = @create.create_employee('John Doe', 50000, 30)
   puts @create_employee
 end
 
@@ -45,20 +35,13 @@ end
 
 
 Dado('que o usuario altere uma informacao de um funcionario') do
-  @put_url = 'http://dummy.restapiexample.com/api/v1/update/123'
+  @request = EmployeeAPI_Request.new
+  
 end
 
 Quando('ele enviar as novas informacoes') do
-  @update_employee = HTTParty.put(@put_url, body: {
-    "employee_name": "John Doe Updated",
-    "employee_salary": 55000,   
-    "employee_age": 31,
-    "profile_image": ""
-  }.to_json,
-  headers: {
-    'Content-Type' => 'application/json'
-  })
-  puts (@update_employee)
+  @update_employee = @request.update_employee(123, 'John Doe Updated', 55000, 31)
+  puts @update_employee
 end
 
 Entao('as informacoes serao alteradas') do
@@ -73,14 +56,11 @@ end
 
 
 Dado('que o usuario queria deletar um funcionario') do
-  @delete_url = 'http://dummy.restapiexample.com/api/v1/delete/123'
+  @request = EmployeeAPI_Request.new
 end
 
 Quando('ele enviar a identificacao unica') do
-  @delete_employee = HTTParty.delete(@delete_url, headers: {
-    'Content-Type' => 'application/json'
-  })
-  puts (@delete_employee)
+  @delete_employee = @request.delete_employee(@request.find_employee['data'][0]['id'])
 end
 
 Entao('o funcionario sera deletado do sistema') do
