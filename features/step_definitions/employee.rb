@@ -17,7 +17,7 @@ Dado('que o usuario cadastre um novofuncionario') do
 end
 
 Quando('ele deve enviar as informacoes do funcionario') do
-  @create_employee = @create.create_employee('John Doe', 50000, 30)
+  @create_employee = @create.create_employee(DATABASE[:name][:name1], DATABASE[:salary][:salary1], DATABASE[:age][:age1])
   puts @create_employee
 end
 
@@ -27,9 +27,9 @@ Entao('esse funcionario sera cadastrado') do
   expect(@create_employee.message).to eql 'OK'
   expect(@create_employee["status"]).to eql 'success'
   expect(@create_employee["message"]).to eql 'Successfully! Record has been added.'
-  expect(@create_employee.parsed_response["data"]["employee_name"]).to eql 'John Doe'
-  expect(@create_employee.parsed_response["data"]["employee_salary"]).to eql (50000)
-  expect(@create_employee.parsed_response["data"]["employee_age"]).to eql (30)
+  expect(@create_employee.parsed_response["data"]["employee_name"]).to eql DATABASE[:name][:name1]
+  expect(@create_employee.parsed_response["data"]["employee_salary"]).to eql DATABASE[:salary][:salary1]
+  expect(@create_employee.parsed_response["data"]["employee_age"]).to eql DATABASE[:age][:age1]
 
 end
 
