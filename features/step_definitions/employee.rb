@@ -1,9 +1,9 @@
 Dado('que o usuario consulte informacoes de um funcionario') do
-  @get_url = '/employees'
+  @getlist = EmployeeAPI_Request.new
 end
 
 Quando('ele realizar a pesquisa') do
-  @list_employees = EmployeeAPI.get(@get_url)
+  @list_employees = @getlist.find_employee
 end
 
 Entao('uma lista de funcionarios deve retornar') do
