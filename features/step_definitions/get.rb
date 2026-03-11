@@ -1,12 +1,13 @@
 Dado('que o usuario consulte informacoes de um funcionario') do
-  @teste = HTTParty.get('http://dummy.restapiexample.com/api/v1/employees')
-  puts @teste
+  @get_url = 'http://dummy.restapiexample.com/api/v1/employees'
 end
 
 Quando('ele realizar a pesquisa') do
-  
+  @list_employees = HTTParty.get(@get_url)
+  puts "A resposta da API foi: #{@list_employees.inspect}"
 end
 
 Entao('uma lista de funcionarios deve retornar') do
-  
+  expect(@list_employees.code).to eql 200
+  expect(@list_employees.message).to eql 'OK'
 end
