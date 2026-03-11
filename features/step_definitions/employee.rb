@@ -43,3 +43,25 @@ Entao('esse funcionario sera cadastrado') do
   expect(@create_employee.parsed_response["data"]["employee_age"]).to eql (30)
 
 end
+
+
+Dado('que o usuario altere uma informacao de um funcionario') do
+  @put_url = 'http://dummy.restapiexample.com/api/v1/update/123'
+end
+
+Quando('ele enviar as novas informacoes') do
+  @update_employee = HTTParty.put(@put_url, body: {
+    "employee_name": "John Doe Updated",
+    "employee_salary": 55000,   
+    "employee_age": 31,
+    "profile_image": ""
+  }.to_json,
+  headers: {
+    'Content-Type' => 'application/json'
+  })
+  puts (@update_employee)
+end
+
+Entao('as informcoes serao alteradas') do
+
+end
