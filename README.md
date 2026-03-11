@@ -92,4 +92,4 @@ Este projeto utiliza a API de exemplo `http://dummy.restapiexample.com/api/v1` p
 
 ## Autor
 
-**Manus AI**
+**Projeto realizado para fins de estudos e conhecimento em teste de QA**
