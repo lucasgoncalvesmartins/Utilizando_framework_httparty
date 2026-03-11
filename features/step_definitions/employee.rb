@@ -71,3 +71,16 @@ expect(@update_employee.code).to eql (200)
   expect(@update_employee.parsed_response["data"]["employee_salary"]).to eql (55000)
   expect(@update_employee.parsed_response["data"]["employee_age"]).to eql (31)
 end
+
+
+Dado('que o usuario queria deletar um funcionario') do
+  
+end
+
+Quando('ele enviar a identificacao unica') do
+  
+end
+
+Entao('o funcionario sera deletado do sistema') do
+  
+end
