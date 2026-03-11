@@ -46,11 +46,7 @@ end
 
 
 Dado('que o usuario altere uma informacao de um funcionario') do
-  @get_employees = HTTParty.get('http://dummy.restapiexample.com/api/v1/employees', headers: {
-    'Content-Type' => 'application/json'
-  })
-@put_url = "http://dummy.restapiexample.com/api/v1/update/" + @get_employees["data"][0]["id"].to_s
-
+  @put_url = 'http://dummy.restapiexample.com/api/v1/update/123'
 end
 
 Quando('ele enviar as novas informacoes') do
